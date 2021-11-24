@@ -84,9 +84,13 @@ WSGI_APPLICATION = 'app.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE'   : 'django.db.backends.sqlite3',
+        'NAME'     : 'd2fcrdpv7dt8bs',
+        'HOST'     : 'ec2-3-232-13-123.compute-1.amazonaws.com',
+        'USER'     : 'xnfinaovuftosm',
+        'PASSWORD' : 'd1256340251269a44021edb54c6731ad76ae034263433951ed34218e06ade3db',
+        'PORT'     : 5432,
+        }        
 }
 
 
@@ -129,3 +133,26 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = 'accounts.User'
+
+Q_CLUSTER = {
+    'name': 'players_stats',
+    'workers': 1,
+    'recycle': 500,
+    'timeout': 60,
+    'compress': True,
+    'save_limit': 250,
+    'queue_limit': 500,
+    'cpu_affinity': 1,
+    'label': 'Django Q',
+    'redis': {
+        'host': 'ec2-52-45-102-98.compute-1.amazonaws.com',
+        'password': 'p6ae4713d213913af5e365dbf58752a7bc87f597a216952ee0cb0aaa6865825f5',
+        'port': 9130,
+        'db': 0, }
+}
+
+
+
+import django_heroku
+
+django_heroku.settings(locals())
