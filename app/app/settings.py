@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'dr%hqgpi(=dtj41u$c2qrzu9mcdnd9tkz@#*d%vm+zt9t(r&d+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['football-players-stats-api.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
