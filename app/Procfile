@@ -1,2 +1,2 @@
-worker : python manage.py qcluster
 web    : guinicorn api.wsgi
+worker : python manage.py qcluster

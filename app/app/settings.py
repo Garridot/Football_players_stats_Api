@@ -56,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'app.urls'
@@ -135,7 +136,7 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'accounts.User'
 
 Q_CLUSTER = {
-    'name': 'players_stats',
+    'name': 'football_players_stats',
     'workers': 1,
     'recycle': 500,
     'timeout': 60,
@@ -151,7 +152,7 @@ Q_CLUSTER = {
         'db': 0, }
 }
 
-
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 import django_heroku
 

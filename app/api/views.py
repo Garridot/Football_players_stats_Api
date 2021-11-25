@@ -79,5 +79,6 @@ class MatchesList(generics.ListAPIView):
         season = self.kwargs['season']
         return Matches.objects.filter(player_id=player,season=season).all()   
     
-Schedule.objects.filter(name="CheckMatchToday").delete()
-schedule(name='CheckMatchToday',func="web_scraping.views.UpdateStast",schedule_type=Schedule.MINUTES,)
+
+# Schedule.objects.filter(name="CheckMatchToday").delete()
+# schedule(name='CheckMatchToday',func="web_scraping.views.UpdateStast",schedule_type=Schedule.MINUTES,) 
