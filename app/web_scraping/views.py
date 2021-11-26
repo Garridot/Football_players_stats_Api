@@ -3,9 +3,12 @@ from django.http.response import HttpResponse
 import requests
 import pandas 
 import sqlite3
+import psycopg2
 from datetime import datetime
 from database.models import *
+from app.settings import DATABASES 
 
+print(DATABASES['default']['NAME'])
 
 def UpdateStast():  
        
@@ -72,7 +75,7 @@ def UpdateStast():
                         result      = f"{data[3][-1:]} {data[4]} {data[5][0]}"                        
                         season      = Seasons.objects.get(season = f"{title[-9:]}") 
 
-                        conn   = sqlite3.connect('db.players_stats')    
+                        conn   = psycopg2.connect('db.d2fcrdpv7dt8bs')    
                         cursor = conn.cursor()        
                         try:
                             index_player = Matches.objects.last().id 
@@ -200,7 +203,7 @@ def CleanData(df,qs_player,qs_season):
     SaveData(df,qs_player,qs_season)
 
 def SaveData(df,qs_player,qs_season):        
-    conn   = sqlite3.connect('db.players_stats')    
+    conn   = psycopg2.connect('db.d2fcrdpv7dt8bs')    
     cursor = conn.cursor()
     
     try:
