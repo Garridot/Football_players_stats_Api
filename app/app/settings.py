@@ -159,9 +159,10 @@ Q_CLUSTER = {
     'redis': {
         'host': 'ec2-52-45-102-98.compute-1.amazonaws.com',
         'password': 'p6ae4713d213913af5e365dbf58752a7bc87f597a216952ee0cb0aaa6865825f5',
-        'port': 9130,
+        'port': 9129,
         'db': 0, }
 }
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
