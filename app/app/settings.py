@@ -26,7 +26,7 @@ SECRET_KEY = 'dr%hqgpi(=dtj41u$c2qrzu9mcdnd9tkz@#*d%vm+zt9t(r&d+'
 DEBUG = False
 
 ALLOWED_HOSTS = ['football-players-stats-api.herokuapp.com', '127.0.0.1']
-
+# ALLOWED_HOSTS = ['*']
 
 # Application definition
 
