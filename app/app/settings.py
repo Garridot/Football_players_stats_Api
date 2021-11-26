@@ -83,17 +83,28 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE'   : 'django.db.backends.postgresql',
+#         'NAME'     : 'd2fcrdpv7dt8bs',
+#         'HOST'     : 'ec2-3-232-13-123.compute-1.amazonaws.com',
+#         'USER'     : 'xnfinaovuftosm',
+#         'PASSWORD' : 'd1256340251269a44021edb54c6731ad76ae034263433951ed34218e06ade3db',
+#         'PORT'     : 5432,
+#         }        
+# }
+
+import dj_database_url
+
 DATABASES = {
     'default': {
-        'ENGINE'   : 'django.db.backends.postgresql',
-        'NAME'     : 'd2fcrdpv7dt8bs',
-        'HOST'     : 'ec2-3-232-13-123.compute-1.amazonaws.com',
-        'USER'     : 'xnfinaovuftosm',
-        'PASSWORD' : 'd1256340251269a44021edb54c6731ad76ae034263433951ed34218e06ade3db',
-        'PORT'     : 5432,
-        }        
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.players_stats',
+    }
 }
 
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
