@@ -231,13 +231,3 @@ def SaveData(df,qs_player,qs_season):
     conn.commit()
     conn.close()
     return HttpResponse(f'{qs_player.name}, {qs_season.season} stats added successufully')
-<<<<<<< HEAD
-
-
-=======
-  
-
-# url = 'https://www.soccerbase.com/players/player.sd?player_id=39850&season_id=134'
-# addPlayerStast(url)
->>>>>>> b95d72f1c62bcbc3279ff146c7ca9ebe3fc2f1d5
- 
