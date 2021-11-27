@@ -75,7 +75,7 @@ def UpdateStast():
                         result      = f"{data[3][-1:]} {data[4]} {data[5][0]}"                        
                         season      = Seasons.objects.get(season = f"{title[-9:]}") 
 
-                        conn   = psycopg2.connect('db.players_stats')    
+                        conn   = sqlite3.connect('db.players_stats')    
                         cursor = conn.cursor()        
                         try:
                             index_player = Matches.objects.last().id 
@@ -96,10 +96,7 @@ def UpdateStast():
                 else:                   
                     None        
 
-        
-
-
-
+    
 def addPlayerStast(url):
     response = requests.get(url)
     soup   = BeautifulSoup(response.text, 'html.parser')
@@ -133,8 +130,9 @@ def addPlayerStast(url):
         CreatePlayer(soup,url)                     
         qs_player  = Players.objects.get(name=player) 
    
-
+    
     CleanData(df,qs_player,qs_season)
+
 
 def CreatePlayer(soup,url):
     player_data  = soup.find('div',class_='twoSoccerColumns clearfix')
@@ -170,13 +168,10 @@ def CreatePlayer(soup,url):
     id = url[55:]
     Players.objects.create(name=name,age=age,height=height,nationality=nationality,club=club,date_of_birth=date_of_birth,player_id=id)
 
+
 def CleanData(df,qs_player,qs_season): 
         
     df.columns = range(df.shape[1])
-    
-    df.drop(index=df.index[0], 
-        axis=0, 
-        inplace=True)
     
     dates = [] 
     for d in df[1]:
@@ -202,10 +197,11 @@ def CleanData(df,qs_player,qs_season):
     
     SaveData(df,qs_player,qs_season)
 
+
 def SaveData(df,qs_player,qs_season):        
-    conn   = psycopg2.connect('db.players_stats')    
+    conn   = sqlite3.connect('db.players_stats')    
     cursor = conn.cursor()
-    
+    print(df)
     try:
         index_player = Matches.objects.last().id 
         if index_player:     
@@ -236,8 +232,6 @@ def SaveData(df,qs_player,qs_season):
     conn.commit()
     conn.close()
     return HttpResponse(f'{qs_player.name}, {qs_season.season} stats added successufully')
-  
-
 
 
  
