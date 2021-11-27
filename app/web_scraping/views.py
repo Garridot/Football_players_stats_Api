@@ -3,7 +3,6 @@ from django.http.response import HttpResponse
 import requests
 import pandas 
 import sqlite3
-import psycopg2
 from datetime import datetime
 from database.models import *
 
@@ -75,7 +74,7 @@ def UpdateStast():
                         result      = f"{data[3][-1:]} {data[4]} {data[5][0]}"                        
                         season      = Seasons.objects.get(season = f"{title[-9:]}") 
 
-                        conn   = psycopg2.connect('db.players_stats')    
+                        conn   = sqlite3.connect('db.players_stats')    
                         cursor = conn.cursor()        
                         try:
                             index_player = Matches.objects.last().id 
@@ -203,7 +202,7 @@ def CleanData(df,qs_player,qs_season):
     SaveData(df,qs_player,qs_season)
 
 def SaveData(df,qs_player,qs_season):        
-    conn   = psycopg2.connect('db.players_stats')    
+    conn   = sqlite3.connect('db.players_stats')    
     cursor = conn.cursor()
     
     try:
@@ -238,6 +237,6 @@ def SaveData(df,qs_player,qs_season):
     return HttpResponse(f'{qs_player.name}, {qs_season.season} stats added successufully')
   
 
-
-
+# url = 'https://www.soccerbase.com/players/player.sd?player_id=39850&season_id=134'
+# addPlayerStast(url)
  
