@@ -74,6 +74,12 @@ class MatchesList(BaseViewSet):
         queryset   = Matches.objects.all()
         serializer = MatchesSerializer(queryset, many=True)
         return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        queryset   = Matches.objects.all()
+        qs         = get_object_or_404(queryset, pk=pk)
+        serializer = MatchesSerializer(qs)
+        return Response(serializer.data)    
     
     # def get_queryset(self):       
         
