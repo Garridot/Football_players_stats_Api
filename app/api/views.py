@@ -68,7 +68,7 @@ class SeasonsView(BaseViewSet):
         serializer = SeasonsSerializer(qs)
         return Response(serializer.data)
 
-class MatchesList(generics.ListAPIView):
+class MatchesList(BaseViewSet):
 
     serializer_class = MatchesSerializer
     permissions      = (IsAuthenticated)
