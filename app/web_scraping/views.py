@@ -132,17 +132,18 @@ def addPlayerStast(url):
     except: 
         
         CreatePlayer(soup,url)                     
-        qs_player  = Players.objects.get(name=player) 
+        # qs_player  = Players.objects.get(name=player) 
    
     
-    CleanData(df,qs_player,qs_season)
+    # CleanData(df,qs_player,qs_season)
 
 
 def CreatePlayer(soup,url):
     player_data  = soup.find('div',class_='twoSoccerColumns clearfix')
     data = player_data.findAll('strong')
     data = [i.text.split() for i in data]
-
+    # url  = [i.strip() for i in url]
+    # print(url)
     ##### Clean Data
 
     club   = soup.find('table',class_='table right career').find('td',class_='first left bull').text.strip() 
@@ -169,7 +170,9 @@ def CreatePlayer(soup,url):
     date_of_birth = f"{date_of_birth[1][2]} {date_of_birth[1][3]} {date_of_birth[1][4]}".replace('(',"").replace(")","")
     date_of_birth = datetime.strptime(date_of_birth,'%d %b, %Y').date()  
     
-    id = url[55:]
+    
+    id = url[55:60]
+    
     Players.objects.create(name=name,age=age,height=height,nationality=nationality,club=club,date_of_birth=date_of_birth,player_id=id)
 
 
@@ -241,3 +244,6 @@ def SaveData(df,qs_player,qs_season):
     conn.commit()
     conn.close()
     return HttpResponse(f'{qs_player.name}, {qs_season.season} stats added successufully')
+
+# url = 'https://www.soccerbase.com/players/player.sd?player_id=56521&season_id=140'
+# addPlayerStast(url)

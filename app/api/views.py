@@ -58,7 +58,7 @@ class SeasonsView(BaseViewSet):
     queryset         = Seasons.objects.all()
     
     def list(self, request):
-        queryset = Seasons.objects.all()
+        queryset   = Seasons.objects.all()
         serializer = SeasonsSerializer(queryset, many=True)
         return Response(serializer.data)
 
@@ -72,6 +72,11 @@ class MatchesList(generics.ListAPIView):
 
     serializer_class = MatchesSerializer
     permissions      = (IsAuthenticated)
+    
+    def list(self, request):
+        queryset   = Matches.objects.all()
+        serializer = MatchesSerializer(queryset, many=True)
+        return Response(serializer.data)
     
     def get_queryset(self):       
         

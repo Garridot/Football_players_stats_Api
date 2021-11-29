@@ -3,7 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Players(models.Model):
-    name           =  models.CharField(max_length=200)
+    name           =  models.CharField(max_length=100)
     age            =  models.CharField(max_length=100)
     date_of_birth  =  models.DateField()
     nationality    =  models.CharField(max_length=100)
@@ -19,7 +19,7 @@ class Players(models.Model):
         verbose_name_plural = 'Players'    
 
 class Seasons(models.Model):
-    season         =  models.CharField(max_length=200)
+    season         =  models.CharField(max_length=100)
 
     def __str__(self):
         return self.season  

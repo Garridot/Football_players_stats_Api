@@ -4,8 +4,8 @@ from database.models import *
 class PlayersSerializer(serializers.ModelSerializer):
     class Meta:
         model = Players
-        fields =  ('__all__')
-
+        fields =  ("id", "name", "age", "date_of_birth", "nationality",  "club", "height")
+        
 
 class SeasonsSerializer(serializers.ModelSerializer):
     class Meta:
