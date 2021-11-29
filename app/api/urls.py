@@ -6,6 +6,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register('seasons',views.SeasonsView,basename='seasons') 
 router.register('players',views.PlayersView,basename='players') 
+router.register('matches',views.MatchesList,basename='matches') 
 
 app_name = 'main'
 urlpatterns = [    
