@@ -69,20 +69,20 @@ class SeasonsView(BaseViewSet):
         return Response(serializer.data)
 
 class MatchesList(BaseViewSet):
-
-    serializer_class = MatchesSerializer
-    permissions      = (IsAuthenticated)
     
     def list(self, request):
         queryset   = Matches.objects.all()
         serializer = MatchesSerializer(queryset, many=True)
         return Response(serializer.data)
     
-    def get_queryset(self):       
+    # def get_queryset(self):       
         
-        player = self.kwargs['player']
-        season = self.kwargs['season']
-        return Matches.objects.filter(player_id=player,season=season).all()   
+    #     player = self.kwargs['player']
+    #     season = self.kwargs['season']
+    #     queryset   = Seasons.objects.all()
+    #     qs         = get_object_or_404(queryset, pk=pk)
+    #     serializer = SeasonsSerializer(qs)
+    #     return Response(serializer.data)  
     
 try:
     if Schedule.objects.filter(name="CheckMatchToday").delete():
