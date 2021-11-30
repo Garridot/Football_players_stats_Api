@@ -90,7 +90,7 @@ class MatchesView(generics.ListAPIView):
     def get_queryset(self):       
         
         player = self.kwargs['player']        
-        return Matches.objects.filter(player_id=player,).all()     
+        return Matches.objects.filter(player=player,).all()     
     # def get_queryset(self):       
         
     #     player = self.kwargs['player']
