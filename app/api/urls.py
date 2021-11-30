@@ -11,5 +11,5 @@ router.register('players',views.PlayersView,basename='players')
 app_name = 'main'
 urlpatterns = [    
     path('',include(router.urls)),
-    path('matches/',views.MatchesView)  
+    path('player=<str:player>/season=<str:season>/',views.MatchesView)  
 ]    
