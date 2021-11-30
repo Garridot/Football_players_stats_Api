@@ -73,7 +73,7 @@ class MatchesView(generics.ListAPIView):
 
     serializer_class = MatchesSerializer
     permissions      = (IsAuthenticated)    
-    
+    paginate_by      = 50
     def get_queryset(self): 
         player = self.kwargs['player']        
         return Matches.objects.filter(player=player,).all() 
