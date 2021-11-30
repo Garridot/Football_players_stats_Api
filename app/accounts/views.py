@@ -24,7 +24,7 @@ from .forms import *
 
 
 class Register(FormView):
-    template_name  = 'Register.html'
+    template_name  = 'register.html'
     form_class     = UserForm
     success_url    = reverse_lazy('accounts:login') 
 
@@ -33,7 +33,7 @@ class Register(FormView):
         return super(Register,self).form_valid(form)
 
 class Login(FormView):
-    template_name = 'Login.html'
+    template_name = 'login.html'
     form_class   = AuthenticationForm
     success_url    = reverse_lazy('accounts:my_account') 
 
