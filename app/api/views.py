@@ -72,8 +72,7 @@ class SeasonsView(BaseViewSet):
 class MatchesView(generics.ListAPIView):
 
     serializer_class = MatchesSerializer
-    permissions      = (IsAuthenticated)
-    model            = Matches
+    permissions      = (IsAuthenticated)    
     
     def get_queryset(self): 
         player = self.kwargs['player']        

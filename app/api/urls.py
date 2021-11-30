@@ -8,7 +8,7 @@ router.register('seasons',views.SeasonsView,basename='seasons')
 router.register('players',views.PlayersView,basename='players') 
 # router.register('matches',views.MatchesView,basename='matches') 
 
-app_name = 'main'
+app_name = 'api'
 urlpatterns = [    
     path('',include(router.urls)),
     path('player=<str:player>/matches',views.MatchesView)  
