@@ -11,5 +11,5 @@ router.register('players',views.PlayersView,basename='players')
 app_name = 'api'
 urlpatterns = [    
     path('',include(router.urls)),
-    path('player=<str:player>/matches',views.MatchesView)  
+    path('player=<str:player>/matches',views.MatchesView.as_view())  
 ]    
