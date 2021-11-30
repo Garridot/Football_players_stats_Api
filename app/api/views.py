@@ -68,19 +68,30 @@ class SeasonsView(BaseViewSet):
         serializer = SeasonsSerializer(qs)
         return Response(serializer.data)
 
-class MatchesView(BaseViewSet):
+# class MatchesView(BaseViewSet):
     
-    def list(self, request):
-        queryset   = Matches.objects.all()
-        serializer = MatchesSerializer(queryset, many=True)
-        return Response(serializer.data)
+#     def list(self, request):
+#         queryset   = Matches.objects.all()
+#         serializer = MatchesSerializer(queryset, many=True)
+#         return Response(serializer.data)
 
-    def retrieve(self, request, pk=None):
-        queryset   = Matches.objects.all()
-        qs         = get_object_or_404(queryset, pk=pk)
-        serializer = MatchesSerializer(qs)
-        return Response(serializer.data)    
+#     def retrieve(self, request, pk=None):
+#         queryset   = Matches.objects.all()
+#         qs         = get_object_or_404(queryset, pk=pk)
+#         serializer = MatchesSerializer(qs)
+#         return Response(serializer.data)    
     
+
+class MatchesList(generics.ListAPIView):
+
+    serializer_class = MatchesSerializer
+    permissions      = (IsAuthenticated)
+    
+    def get_queryset(self):       
+        
+        player = self.kwargs['player']
+        season = self.kwargs['season']
+        return Matches.objects.filter(player_id=player,season=season).all()     
     # def get_queryset(self):       
         
     #     player = self.kwargs['player']
