@@ -67,38 +67,18 @@ class SeasonsView(BaseViewSet):
         qs         = get_object_or_404(queryset, pk=pk)
         serializer = SeasonsSerializer(qs)
         return Response(serializer.data)
-
-# class MatchesView(BaseViewSet):
-    
-#     def list(self, request):
-#         queryset   = Matches.objects.all()
-#         serializer = MatchesSerializer(queryset, many=True)
-#         return Response(serializer.data)
-
-#     def retrieve(self, request, pk=None):
-#         queryset   = Matches.objects.all()
-#         qs         = get_object_or_404(queryset, pk=pk)
-#         serializer = MatchesSerializer(qs)
-#         return Response(serializer.data)    
-    
+ 
 
 class MatchesView(generics.ListAPIView):
 
     serializer_class = MatchesSerializer
     permissions      = (IsAuthenticated)
+    model            = Matches
     
-    def get_queryset(self):       
-        
+    def get_queryset(self): 
         player = self.kwargs['player']        
-        return Matches.objects.filter(player=player,).all()     
-    # def get_queryset(self):       
-        
-    #     player = self.kwargs['player']
-    #     season = self.kwargs['season']
-    #     queryset   = Seasons.objects.all()
-    #     qs         = get_object_or_404(queryset, pk=pk)
-    #     serializer = SeasonsSerializer(qs)
-    #     return Response(serializer.data)  
+        return Matches.objects.filter(player=player,).all() 
+    
     
 try:
     if Schedule.objects.filter(name="CheckMatchToday").delete():
