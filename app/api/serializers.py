@@ -17,6 +17,3 @@ class MatchesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Matches
         fields =  ('__all__')                
-
-class ScrapingSerializer(serializers.Serializer):
-    url = serializers.URLField()

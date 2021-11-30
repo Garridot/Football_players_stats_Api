@@ -68,7 +68,7 @@ class SeasonsView(BaseViewSet):
         serializer = SeasonsSerializer(qs)
         return Response(serializer.data)
 
-class MatchesList(BaseViewSet):
+class MatchesView(BaseViewSet):
     
     def list(self, request):
         queryset   = Matches.objects.all()

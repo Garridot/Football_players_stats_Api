@@ -212,8 +212,7 @@ def SaveData(df,qs_player,qs_season):
                                 host=DATABASES['default']['HOST'],
                                 port=DATABASES['default']['PORT'],
                                 database=DATABASES['default']['NAME'])    
-    cursor = conn.cursor()
-    print(df)
+    cursor = conn.cursor()    
     try:
         index_player = Matches.objects.last().id 
         if index_player:     
