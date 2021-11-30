@@ -1,5 +1,3 @@
-
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -15,8 +13,8 @@ SECRET_KEY = 'dr%hqgpi(=dtj41u$c2qrzu9mcdnd9tkz@#*d%vm+zt9t(r&d+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-# ALLOWED_HOSTS = ['football-players-stats-api.herokuapp.com', '127.0.0.1']
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['football-players-stats-api.herokuapp.com',]
+
 
 # Application definition
 
@@ -84,17 +82,6 @@ DATABASES = {
         }        
 }
 
-# import dj_database_url
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.players_stats',
-#     }
-# }
-
-# db_from_env = dj_database_url.config(conn_max_age=600)
-# DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
