@@ -42,7 +42,7 @@ def UpdateStast():
             for t in teams:
                 
                 if t == p.club or t == p.nationality: 
-
+                    print(p) 
                     url = f'https://www.soccerbase.com/players/player.sd?player_id={p.player_id}' 
                     response = requests.get(url)
                     soup  = BeautifulSoup(response.text, 'html.parser')
@@ -51,15 +51,15 @@ def UpdateStast():
                     table = soup.findAll('tr',class_='match')    
                     tr    = [a.text.split() for a in table]            
                     data  = tr[-1]    
-                    print(data)
+                    
                     date  = f"{data[2][:2]} {data[2][2:]} {data[3][:4]}"
-                    print(date) 
+                    p
                     date  = datetime.strptime(date,'%d %b %Y').date() 
-                    print(date) 
+                     
 
                     
                     
-                    match = Matches.objects.filter(player_id=p).last()
+                    match = Matches.objects.filter(player=p).last()
                     print(match.date)
                     print(date)
                     if date != match.date:
@@ -249,3 +249,5 @@ def SaveData(df,qs_player,qs_season):
 
 # url = 'https://www.soccerbase.com/players/player.sd?player_id=56521&season_id=140'
 # addPlayerStast(url)
+
+UpdateStast()
