@@ -51,14 +51,17 @@ def UpdateStast():
                     table = soup.findAll('tr',class_='match')    
                     tr    = [a.text.split() for a in table]            
                     data  = tr[-1]    
-                    
-                    date  = f"{data[2][:2]} {data[2][2:]} {data[3][:4]}" 
+                    print(data)
+                    date  = f"{data[2][:2]} {data[2][2:]} {data[3][:4]}"
+                    print(date) 
                     date  = datetime.strptime(date,'%d %b %Y').date() 
+                    print(date) 
 
-
-
+                    
+                    
                     match = Matches.objects.filter(player_id=p).last()
-
+                    print(match.date)
+                    print(date)
                     if date != match.date:
                         competition = f"{data[0]} {data[1][:-2]}"
                         home_team   = f"{data[3][4:-1]}"

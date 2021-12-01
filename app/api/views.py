@@ -4,7 +4,8 @@ from rest_framework import  generics
 from rest_framework.permissions import *
 from rest_framework.authentication import TokenAuthentication 
 from rest_framework.viewsets import *
- 
+from rest_framework import status
+
 # django_q
 from django_q.tasks import schedule
 from django_q.models import Schedule
@@ -72,12 +73,25 @@ class SeasonsView(BaseViewSet):
 class MatchesView(generics.ListAPIView):
 
     serializer_class = MatchesSerializer
-    permissions      = (IsAuthenticated)    
-    paginate_by      = 50
-    def get_queryset(self): 
-        player = self.kwargs['player']        
-        return Matches.objects.filter(player=player,).all() 
+    permissions      = (IsAuthenticated)
     
+    def get_queryset(self):
+
+        queryset  = Matches.objects.all()
+        player    = self.kwargs['player']
+        season    = self.request.query_params.get('season')
+
+        if season is not None:
+            queryset  = queryset.filter(player=player,season=season)
+            if queryset.exists():
+                return queryset
+            else:  
+                if Players.objects.filter(id=player) and Seasons.objects.filter(id=season):
+                    raise serializers.ValidationError({"detail": f"{Players.objects.get(id=player)} has not played any matches in {Seasons.objects.get(id=season)} ",'code':status.HTTP_404_NOT_FOUND})
+                else:
+                    raise serializers.ValidationError({"detail": "player or season doesn't exist",'code':status.HTTP_400_BAD_REQUEST})
+        else:      
+            return queryset.filter(player=player)  
     
 try:
     if Schedule.objects.filter(name="CheckMatchToday").delete():
