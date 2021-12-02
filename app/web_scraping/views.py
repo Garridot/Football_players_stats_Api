@@ -57,14 +57,16 @@ def UpdateStast():
                     date  = datetime.strptime(date,'%d %b %Y').date() 
                     
                     match = Matches.objects.filter(player=p).last()  
-                                    
+                               
                     if date != match.date:
                         competition = f"{data[0]} {data[1][:-2]}"
                         home_team   = f"{data[3][4:-1]}"
                         away_team   = f"{data[5][1:]}"
-                        goals       = f"{data[6][-1]}"
+                        
+                        
                         
                         try:
+                            goals       = f"{data[6][-1]}"
                             goals = int(goals)
                             goals = f"{goals}"
                         except:
@@ -73,26 +75,7 @@ def UpdateStast():
                         result      = f"{data[3][-1:]} {data[4]} {data[5][0]}"                        
                         season      = Seasons.objects.get(season = f"{title[-9:]}") 
 
-                        # conn   = sqlite3.connect('db.players_stats') 
-                        # conn     = psycopg2.connect(user=DATABASES['default']['USER'],
-                        #                             password=DATABASES['default']['PASSWORD'],
-                        #                             host=DATABASES['default']['HOST'],
-                        #                             port=DATABASES['default']['PORT'],
-                        #                             database=DATABASES['default']['NAME'])     
-                        # cursor = conn.cursor()        
-                        # try:
-                        #     index_player = Matches.objects.last().id 
-                        #     if index_player:     
-                        #         index  = int(index_player) + 1
-                        #         index  = index 
-                        # except:
-                        #     index = 1 
-
-                        # cursor.execute('''
-                        #     INSERT INTO database_matches VALUES (?,?,?,?,?,?,?,?,?)''',
-                        #     (index,date,competition,home_team,result,away_team,goals,p.id,season.id))    
-                        # conn.commit()
-                        # conn.close()
+                        
                         Matches.objects.create(
                         date        = date,
                         competition = competition,
@@ -101,7 +84,7 @@ def UpdateStast():
                         away_team   = away_team,
                         goals       = goals,
                         player      = Players.objects.get(id=p.id),
-                        season      = Seasons.objects.get(id=season)
+                        season      = Seasons.objects.get(id=season.id)
                         )  
                         print('Stat Added')         
                     else:
@@ -250,6 +233,7 @@ def SaveData(df,qs_player,qs_season):
              
     return HttpResponse(f'{qs_player.name}, {qs_season.season} stats added successufully')
 
-url = 'https://www.soccerbase.com/players/player.sd?player_id=39850'
-addPlayerStast(url)
+# url = 'https://www.soccerbase.com/players/player.sd?player_id=39850'
+# addPlayerStast(url)
 
+UpdateStast()
