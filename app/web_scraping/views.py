@@ -236,4 +236,3 @@ def SaveData(df,qs_player,qs_season):
 # url = 'https://www.soccerbase.com/players/player.sd?player_id=39850'
 # addPlayerStast(url)
 
-UpdateStast()
