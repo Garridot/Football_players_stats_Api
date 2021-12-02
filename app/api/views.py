@@ -69,7 +69,6 @@ class SeasonsView(BaseViewSet):
         serializer = SeasonsSerializer(qs)
         return Response(serializer.data)
  
-
 class MatchesView(generics.ListAPIView):
 
     serializer_class    = MatchesSerializer
