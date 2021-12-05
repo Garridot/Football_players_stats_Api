@@ -41,54 +41,29 @@ def UpdateStast():
             
             for t in teams:
                 
-                if t == p.club or t == p.nationality: 
-                    print(p)
+                if t == p.club or t == p.nationality:                     
                     url = f'https://www.soccerbase.com/players/player.sd?player_id={p.player_id}' 
                     response = requests.get(url)
                     soup  = BeautifulSoup(response.text, 'html.parser')
 
                     title = soup.find('h2').text.strip()
-                    table = soup.findAll('tr',class_='match')    
-                    tr    = [a.text.split() for a in table]            
-                    data  = tr[-1]    
-                    
+                    table = soup.find('table',class_='soccerGrid listWithCards') 
+                   
+                       
+                    season = Seasons.objects.get_or_create(season=f"{title[-9:]}")
+                    df = pandas.read_html(str(table))
+                    df = df[0]        
+
+                    match = soup.findAll('tr',class_='match') 
+                    tr    = [a.text.split() for a in match]            
+                    data  = tr[-1] 
                     date  = f"{data[2][:2]} {data[2][2:]} {data[3][:4]}"
-                    
-                    date  = datetime.strptime(date,'%d %b %Y').date() 
-                    
-                    match = Matches.objects.filter(player=p).last()  
+                    date  = datetime.strptime(date,'%d %b %Y').date()                     
+                    match = Matches.objects.filter(player=p).last() 
                                
                     if date != match.date:
-                        competition = f"{data[0]} {data[1][:-2]}"
-                        home_team   = f"{data[3][4:-1]}"
-                        away_team   = f"{data[5][1:]}"
-                        
-                        
-                        
-                        try:
-                            goals       = f"{data[6][-1]}"
-                            goals = int(goals)
-                            goals = f"{goals}"
-                        except:
-                            goals = '0'   
-
-                        result      = f"{data[3][-1:]} {data[4]} {data[5][0]}"                        
-                        season      = Seasons.objects.get(season = f"{title[-9:]}") 
-
-                        
-                        Matches.objects.create(
-                        date        = date,
-                        competition = competition,
-                        home_team   = home_team,
-                        result      = result,
-                        away_team   = away_team,
-                        goals       = goals,
-                        player      = Players.objects.get(id=p.id),
-                        season      = Seasons.objects.get(id=season.id)
-                        )  
-                        print('Stat Added')         
-                    else:
-                        return None 
+                        CleanData(df,qs_player=p,qs_season=season)
+                    
                 else:                   
                     None        
 
@@ -99,20 +74,15 @@ def addPlayerStast(url):
         
     title = soup.find('h2').text.strip()
     table = soup.find('table',class_='soccerGrid listWithCards')
-    df = pandas.read_html(str(table))
+    df = pandas.read_html(table)
 
     df = df[0]
 
 
     season = f"{title[-9:]}"    
-    try:
-        qs_season  = Seasons.objects.get(season=season)
-        if qs_season:
-            qs_season  = qs_season
     
-    except:              
-        qs_season  = Seasons.objects.create(season=season)
-        qs_season  = Seasons.objects.get(season=season)
+    qs_season  = Seasons.objects.get_or_create(season=season)
+       
     
     player = soup.find('tr',class_='first').find('td').text.strip()
     
@@ -192,8 +162,8 @@ def CleanData(df,qs_player,qs_season):
     4:'Result', 5:'Away_team', 6:'Goals',},axis=1) 
        
     df = df.fillna(0)
-    
-    SaveData(df,qs_player,qs_season)
+    print(df)
+    # SaveData(df,qs_player,qs_season)
 
 
 def SaveData(df,qs_player,qs_season):        
@@ -236,3 +206,4 @@ def SaveData(df,qs_player,qs_season):
 # url = 'https://www.soccerbase.com/players/player.sd?player_id=39850'
 # addPlayerStast(url)
 
+UpdateStast()
