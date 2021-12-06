@@ -41,7 +41,7 @@ class BaseViewSet(ModelViewSet):
 
         return [permission() for permission in permission_classes]
 
-class PlayersView(BaseViewSet): 
+class PlayersView(ModelViewSet): 
     
     serializer_class = PlayersSerializer
     queryset         = Players.objects.all()
@@ -57,7 +57,7 @@ class PlayersView(BaseViewSet):
         serializer = PlayersSerializer(qs)
         return Response(serializer.data)
    
-class SeasonsView(BaseViewSet): 
+class SeasonsView(ModelViewSet): 
 
     serializer_class = SeasonsSerializer
     queryset         = Seasons.objects.all()
