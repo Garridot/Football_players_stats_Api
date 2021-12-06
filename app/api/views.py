@@ -27,10 +27,10 @@ class BaseViewSet(ModelViewSet):
         Instantiates and returns the list of permissions that this view requires.
         """
         if self.action == 'list':
-            permission_classes = None
+            return None
 
         elif self.action == 'retrieve':
-            permission_classes = None  
+            return None  
 
         else:
             permission_classes = [IsAuthenticated,IsAdminUser]
