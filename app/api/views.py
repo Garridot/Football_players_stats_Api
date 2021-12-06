@@ -20,18 +20,17 @@ from .serializers import *
 
 
 
-class BaseViewSet(ModelViewSet):
+class BaseViewSet(ModelViewSet):    
     
-    authentication_class   = (TokenAuthentication,)
     def get_permissions(self):
         """
         Instantiates and returns the list of permissions that this view requires.
         """
         if self.action == 'list':
-            permission_classes = [IsAuthenticated]
+            permission_classes = None
 
         elif self.action == 'retrieve':
-            permission_classes = [IsAuthenticated]   
+            permission_classes = None  
 
         else:
             permission_classes = [IsAuthenticated,IsAdminUser]
@@ -72,7 +71,7 @@ class SeasonsView(BaseViewSet):
 class MatchesView(generics.ListAPIView):
 
     serializer_class    = MatchesSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
 
