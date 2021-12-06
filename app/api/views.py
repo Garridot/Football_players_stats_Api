@@ -27,16 +27,16 @@ class BaseViewSet(ModelViewSet):
         Instantiates and returns the list of permissions that this view requires.        
         """
 
-        if self.action =='create':
+        if self.action == 'create':
             permission_classes = [IsAuthenticated,IsAdminUser]
 
         if self.action == 'update': 
             permission_classes = [IsAuthenticated,IsAdminUser]
 
-        elif self.action =='partial_update':
+        elif self.action == 'partial_update':
             permission_classes = [IsAuthenticated,IsAdminUser]
 
-        elif self.action =='destroy':
+        elif self.action == 'destroy':
             permission_classes = [IsAuthenticated,IsAdminUser]
 
         return [permission() for permission in permission_classes]

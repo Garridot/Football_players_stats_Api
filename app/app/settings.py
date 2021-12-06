@@ -19,8 +19,8 @@ ALLOWED_HOSTS = ['football-players-stats-api.herokuapp.com','127.0.0.1']
 
 CORS_ALLOW_ALL_ORIGINS = True                         
 CORS_ALLOW_CREDENTIALS = True
-CORS_ALLOWED_ORIGINS    = [ 'https://football-players-stats-api.herokuapp.com/',] 
-CORS_ALLOWED_ORIGIN_REGEXES = [ 'https://football-players-stats-api.herokuapp.com/',]
+CORS_ALLOWED_ORIGINS    = [ 'https://football-players-stats-api.herokuapp.com',] 
+CORS_ALLOWED_ORIGIN_REGEXES = [ 'https://football-players-stats-api.herokuapp.com',]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
