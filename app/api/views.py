@@ -30,7 +30,7 @@ class BaseViewSet(ModelViewSet):
         if self.action == 'create':
             permission_classes = [IsAuthenticated,IsAdminUser]
 
-        if self.action == 'update': 
+        elif self.action == 'update': 
             permission_classes = [IsAuthenticated,IsAdminUser]
 
         elif self.action == 'partial_update':
