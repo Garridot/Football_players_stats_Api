@@ -2,11 +2,9 @@ from bs4 import BeautifulSoup
 from django.http.response import HttpResponse
 import requests
 import pandas 
-import sqlite3
 from datetime import datetime
 from database.models import *
-import psycopg2
-from app.settings import DATABASES
+
 
 
 def UpdateStast():  
@@ -74,7 +72,7 @@ def addPlayerStast(url):
         
     title = soup.find('h2').text.strip()
     table = soup.find('table',class_='soccerGrid listWithCards')
-    df = pandas.read_html(table)
+    df = pandas.read_html(str(table))
 
     df = df[0]
 
@@ -162,23 +160,15 @@ def CleanData(df,qs_player,qs_season):
     4:'Result', 5:'Away_team', 6:'Goals',},axis=1) 
        
     df = df.fillna(0)
-    print(df)
-    # SaveData(df,qs_player,qs_season)
+    
+    SaveData(df,qs_player,qs_season)
 
 
 def SaveData(df,qs_player,qs_season):        
-     
-    try:
-        index_player = Matches.objects.last().id 
-        if index_player:     
-            index  = int(index_player) + 1
-            index  = index 
-    except:
-        index = 1        
-
-    
-    player = int(qs_player.id)
-    season = int(qs_season.id)
+         
+    player = qs_player.id
+    season = qs_season[0]
+    season = season.id
 
     
 
@@ -201,9 +191,8 @@ def SaveData(df,qs_player,qs_season):
                 season      = Seasons.objects.get(id=season)
                 )  
              
-    return HttpResponse(f'{qs_player.name}, {qs_season.season} stats added successufully')
+    return HttpResponse(f'{player}, {season} stats added successufully')
 
-# url = 'https://www.soccerbase.com/players/player.sd?player_id=39850'
-# addPlayerStast(url)
+url = 'https://www.soccerbase.com/players/player.sd?player_id=52657'
+addPlayerStast(url)
 
-UpdateStast()
