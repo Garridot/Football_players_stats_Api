@@ -8,8 +8,7 @@ class Players(models.Model):
     date_of_birth  =  models.DateField()
     nationality    =  models.CharField(max_length=100)
     club           =  models.CharField(max_length=100)
-    height         =  models.CharField(max_length=100)
-    player_id      =  models.CharField(max_length=10)
+    height         =  models.CharField(max_length=100)    
 
     def __str__(self):
         return self.name
