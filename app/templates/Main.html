@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static  %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Stats Api</title>
+    <!-- Fontawesome -->
+    <script src="https://kit.fontawesome.com/47100a983e.js" crossorigin="anonymous"></script>
+
+    <!--Aos-->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <!--Bootstrap-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
+    <link rel="stylesheet" href="{% static 'main.css' %}">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <header>
+            <div class="title">
+                <h2>Player Stats Api</h2>
+            </div> 
+            <div class="toggle">
+                <i class="fas fa-ellipsis-v"></i>
+            </div>
+            <ul class="navegation">
+                <li><a href="#documentation">Documentation</a></li>
+                <li><a href="#endpoints">Endpoins</a></li>
+                <li><a href="https://github.com/Garridot/Football_players_stats_Api"><i class="fab fa-github"></i> Github</a></li>
+            </ul>
+        </header>
+        <main>
+            <div class="text" data-aos="fade-right" data-aos-duration="1000">
+                <h2>Player Stats</h2> <h2 class="api">Api</h2>      
+                <p>A simple Football API to get players’ stats.</p>
+            </div> 
+            <div class="img" data-aos="fade-left" data-aos-duration="2000">
+                <img src="{% static 'main.png' %}" alt="">
+            </div>
+        </main> 
+        <div class="content" >
+            <table class="table  table-responsive-sm">
+                <thead>
+                    <tr>                    
+                    <th scope="col">Date</th>
+                    <th scope="col">Competition</th>
+                    <th scope="col">Home team</th>
+                    <th scope="col">Result</th>
+                    <th scope="col">Away team</th>
+                    <th scope="col">Goals</th>
+                    </tr>
+                </thead>
+                <tbody class="data">  
+
+                </tbody>            
+            </table>  
+        </div>  
+        <section class="documentation" id="documentation" data-aos="fade-right" data-aos-duration="1000">
+
+            <h3>Information</h3>
+
+            <p>
+                This is a consumption-only API — only the HTTP GET method is available on resources.
+                No authentication is required to access this API, and all resources are fully open and available.
+            </p>
+
+            <h3>What is an API?</h3> 
+
+            <p>
+                An API (Application Programming Interface) is a contract that allow developers to interact with an application through 
+                a set of interfaces. 
+                In this case, the application is a database of thousands of Pokémon-related objects, and the interfaces are URL links.
+                A RESTful API is an API that conforms to a set of loose conventions based on HTTP verbs, errors, and hyperlinks.
+            </p>
+
+            
+
+            <h3>What information is stored here?</h3>
+
+            <ul class="data_list">
+                <h4>Player</h4>
+                <li>Id</li>
+                <li>Name</li>
+                <li>Age</li>
+                <li>Date of birth</li>
+                <li>Nationality</li>
+                <li>Club</li>
+                <li>Height</li>
+            </ul>
+
+            <ul class="data_list">
+                <h4>Season</h4>
+                <li>Id</li>
+                <li>Season</li>
+            </ul>
+
+            <ul class="data_list">
+                <h4>Match</h4>
+                <li>Id</li>
+                <li>Player</li>
+                <li>Season</li>
+                <li>Date</li>
+                <li>Competition</li>
+                <li>Home team</li>
+                <li>Result</li>
+                <li>Away team</li>
+                <li>Goals</li>
+            </ul>
+        </section> 
+        <section class="endpoints" id="endpoints" data-aos="fade-right"  data-aos-duration="1000">
+            <h3>Endpoints</h3>
+            <p>Base URL for all endpoints https://football-players-stats-api.herokuapp.com</p>
+            <ul class="endpoints_list">
+                <li> <samp>GET </samp> <code>/api/players/</code> </li> 
+                <li> <samp>GET </samp> <code>/api/players/{player_id}/</code> </li>
+                <li> <samp>GET </samp> <code>/api/seasons/</code> </li>
+                <li> <samp>GET </samp> <code>/api/seasons/{season_id}</code> </li>
+                <li> <samp>GET </samp> <code>/api/matches/player={player_id}</code> </li>
+                <li> <samp>GET </samp> <code>/api/matches/player={player_id}/?season={season_id}</code> </li>
+            </ul>
+            <p>
+                Example request:<br>
+            </p>
+            <code>    
+                GET /api/players/1/
+            </code>    
+            <p>    
+                Example response:<br>
+            </p>
+            <code>
+                {<br>
+                    
+                    &nbsp "id":1,<br>
+                    &nbsp "name":"Lionel Messi",<br>
+                    &nbsp "age":"34",<br>
+                    &nbsp "date_of_birth":"1987-06-24",<br>
+                    &nbsp "nationality":"Argentina",<br>
+                    &nbsp "club":"Paris St-G.",<br>
+                    &nbsp "height":"1.68m"<br>
+                }
+            </code>
+        </section>
+        <footer>
+            <p>
+                <a href="https://github.com/Garridot/Football_players_stats_Api">Player Stats Api</a>
+                 is created by 
+                 <a href="https://github.com/Garridot">Tomas Garrido</a> 
+                <i class="fab fa-github"></i>
+            </p>
+        </footer>
+    </div>  
+    <!--Aos.js-->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>  
+    <script>        
+        AOS.init();
+    </script>
+</body>
+<script src="{% static 'main.js' %}"></script>
+
+</html>

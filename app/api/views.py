@@ -10,14 +10,16 @@ from rest_framework import status
 from django_q.tasks import schedule
 from django_q.models import Schedule
 
-
+# django
 from web_scraping.views import *
 from database.models import *
-
 from django.shortcuts import get_object_or_404
 from .serializers import *
+from django.views.generic import TemplateView
 
 
+class MainView(TemplateView):
+    template_name = "main.html"
 
 
 class BaseViewSet(ModelViewSet):    
