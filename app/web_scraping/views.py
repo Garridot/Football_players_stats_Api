@@ -196,6 +196,4 @@ def SaveData(df,qs_player,qs_season):
              
     return HttpResponse(f'{player}, {season} stats added successufully')
 
-url = 'https://www.soccerbase.com/players/player.sd?player_id=50603'
-addPlayerStast(url)
 
