@@ -35,12 +35,14 @@ def UpdateStast():
             teams.append(h)
             teams.append(a)
         
-        for p in Players.objects.all():  
-            
+        for p in Players.objects.all(): 
+
+            scraping = Scraping.objects.get(player=p)
+
             for t in teams:
                 
                 if t == p.club or t == p.nationality:                     
-                    url = f'https://www.soccerbase.com/players/player.sd?player_id={p.player_id}' 
+                    url = f'https://www.soccerbase.com/players/player.sd?player_id={scraping.id_to_scraping}' 
                     response = requests.get(url)
                     soup  = BeautifulSoup(response.text, 'html.parser')
 
@@ -130,10 +132,11 @@ def CreatePlayer(soup,url):
     date_of_birth = datetime.strptime(date_of_birth,'%d %b, %Y').date()  
     
     
-    id = url[55:60]
+    player_id = url[55:60]
     
-    Players.objects.create(name=name,age=age,height=height,nationality=nationality,club=club,date_of_birth=date_of_birth,player_id=id)
-
+    player = Players.objects.create(name=name,age=age,height=height,nationality=nationality,club=club,date_of_birth=date_of_birth)
+    
+    Scraping.objects.create(player=player,id_to_scraping=player_id)
 
 def CleanData(df,qs_player,qs_season): 
         
@@ -193,6 +196,6 @@ def SaveData(df,qs_player,qs_season):
              
     return HttpResponse(f'{player}, {season} stats added successufully')
 
-url = 'https://www.soccerbase.com/players/player.sd?player_id=52657'
+url = 'https://www.soccerbase.com/players/player.sd?player_id=50603'
 addPlayerStast(url)
 

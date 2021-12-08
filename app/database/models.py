@@ -18,6 +18,9 @@ class Players(models.Model):
         verbose_name        = 'Player'
         verbose_name_plural = 'Players'    
 
+class Scraping(models.Model):
+    player         =  models.ForeignKey(Players,on_delete=models.CASCADE)
+    id_to_scraping    =  models.CharField(max_length=10)
 class Seasons(models.Model):
     season         =  models.CharField(max_length=100)
 

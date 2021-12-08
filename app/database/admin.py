@@ -15,6 +15,10 @@ class MatchesAdmin(admin.ModelAdmin):
 class SeasonsAdmin(admin.ModelAdmin):
     list_display  = ('id','season')
 
+class ScrapingAdmin(admin.ModelAdmin):
+    list_display  = ('id','player','id_to_scraping')
+
 admin.site.register(Players,PlayersAdmin)
 admin.site.register(Seasons,SeasonsAdmin)
 admin.site.register(Matches,MatchesAdmin)
+admin.site.register(Scraping,ScrapingAdmin)
