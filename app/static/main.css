@@ -141,11 +141,10 @@ section ul.data_list h4{
     
     padding: 0 0 10px 0;
 }
-section.endpoints ul li samp{
+li samp{
     background: #212529;
     padding: 0rem 0.75rem;
-    margin: 0 1rem 0 0;
-    
+    margin: 0 1rem 0 0;    
     border-radius: 5%;
     color: #fff;
 }
@@ -204,10 +203,7 @@ footer{
         top: 0;
         margin: 0;
         padding: 0 0 2rem 0;
-    }
-    main .img{
-        display: none;
-    }
+    }    
     .content{
         margin: 0;
     }
@@ -225,6 +221,18 @@ footer{
     section {
         margin: 3% 5%;
     } 
+}
+
+@media (max-width: 450px){
+    .content{
+        display:none
+    }
+}
+
+@media (max-width: 1150px){
+    main .img{
+        display: none;    
+    }
 }
 
 

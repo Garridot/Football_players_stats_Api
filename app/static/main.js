@@ -8,8 +8,15 @@ icon.addEventListener("click",function(){
 
 
 var div = document.querySelector('.data')
+
+const token = "b6f28d7fc1c6d63567a7181a12c6aa8dae59598";
+
 const get_players = async() =>{
-const response = await fetch('https://football-players-stats-api.herokuapp.com/api/matches/player=1/?season=18')
+const response = await fetch('https://football-players-stats-api.herokuapp.com/api/matches/player=1/?season=18',{
+    headers: {
+        Authorization: `token ${token}`
+    }
+})
 const data = await response.json()  
 
 var list = data

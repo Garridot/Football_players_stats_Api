@@ -8,6 +8,12 @@ from rest_framework.settings import api_settings
 from rest_framework import status
 from rest_framework.response import Response
 
+
+
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
+
 #Login
 from django.urls import reverse_lazy
 from django.contrib.auth import login,logout,authenticate,get_user_model
@@ -32,25 +38,26 @@ class Register(FormView):
         form.save()
         return super(Register,self).form_valid(form)
 
-class Login(FormView):
-    template_name = 'login.html'
-    form_class   = AuthenticationForm
-    success_url    = reverse_lazy('accounts:my_account') 
 
-    
-    def dispatch(self, request, *args, **kwargs):
+class Login(FormView):
+    template_name = "login.html"
+    form_class = AuthenticationForm
+    success_url = reverse_lazy('accounts:my_account') 
+
+    @method_decorator(csrf_protect)
+    @method_decorator(never_cache)
+    def dispatch(self,request,*args,**kwargs):
         if request.user.is_authenticated:
             return HttpResponseRedirect(self.get_success_url())
         else:
-            return super(Login,self).dispatch(request, *args, **kwargs)
-    
-    def form_valid(self, form):
-        user  = authenticate( email = form.cleaned_data['username'], password = form.cleaned_data['password'] )  
-        
-        token = Token.objects.get_or_create( user = user ) 
+            return super(Login,self).dispatch(request,*args,*kwargs)
+
+    def form_valid(self,form):
+        user = authenticate(username = form.cleaned_data['username'], password = form.cleaned_data['password'])
+        token,_ = Token.objects.get_or_create(user = user)
         if token:
             login(self.request, form.get_user())
-            return super(Login,self).form_valid(form)
+            return super(Login,self).form_valid(form)            
 
 class Logout(APIView):
     def get(self,request,format=None):        

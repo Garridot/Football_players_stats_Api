@@ -1,4 +1,6 @@
 # rest_framework
+from django.db.models.base import ModelBase
+from rest_framework.decorators import authentication_classes, permission_classes
 from rest_framework.response import Response
 from rest_framework import  generics
 from rest_framework.permissions import *
@@ -22,13 +24,14 @@ class MainView(TemplateView):
     template_name = "main_page.html"
 
 
-class BaseViewSet(ModelViewSet):    
+
+class BaseViewSet(ModelViewSet):
+
+    authentication_class = (TokenAuthentication,)    
     
     def get_permissions(self):
-        """
-        Instantiates and returns the list of permissions that this view requires.        
-        """
-
+        permission_classes = [IsAuthenticated,] 
+        
         if self.action == 'create':
             permission_classes = [IsAuthenticated,IsAdminUser]
 
@@ -42,8 +45,14 @@ class BaseViewSet(ModelViewSet):
             permission_classes = [IsAuthenticated,IsAdminUser]
 
         return [permission() for permission in permission_classes]
+        
+        
 
-class PlayersView(ModelViewSet): 
+        
+
+    
+
+class PlayersView(BaseViewSet): 
     
     serializer_class = PlayersSerializer
     queryset         = Players.objects.all()
@@ -59,7 +68,7 @@ class PlayersView(ModelViewSet):
         serializer = PlayersSerializer(qs)
         return Response(serializer.data)
    
-class SeasonsView(ModelViewSet): 
+class SeasonsView(BaseViewSet): 
 
     serializer_class = SeasonsSerializer
     queryset         = Seasons.objects.all()
@@ -78,7 +87,8 @@ class SeasonsView(ModelViewSet):
 class MatchesView(generics.ListAPIView):
 
     serializer_class    = MatchesSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated,] 
+    authentication_class = (TokenAuthentication,)
     
     def get_queryset(self):
 
