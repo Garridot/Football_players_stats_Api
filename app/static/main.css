@@ -149,6 +149,19 @@ li samp{
     color: #fff;
 }
 
+li code {
+    font-size: medium;
+}
+
+.code-area{
+    background: #fceef0;
+    padding: 1rem;
+}
+.code-area code{
+    color: #212529;
+    font-size: medium;
+}
+
 footer{
     margin: 3% 20%;
     text-align: center;

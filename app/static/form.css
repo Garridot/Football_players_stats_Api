@@ -1,0 +1,70 @@
+.container-fluid{
+width: 100%;
+}
+.container-fluid .title{
+border-bottom: 1px solid #d9dadc;
+padding: 25px 0 10px;
+margin-bottom: 30px;
+text-align: center;
+}
+.title a{
+text-decoration: none;
+color: #212529;
+}
+
+
+
+form{
+    padding: 3rem;
+    display: grid;
+}
+
+form input,textarea{
+    margin: 0.5rem 0;
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+form label{
+    color: rgb(122, 122, 122);
+}
+
+form input[type=submit]{
+    background: #212529;
+    color: white;
+}
+
+
+
+.errorlist  li{
+    color: lightcoral;
+    padding: 0.2rem;
+    border-radius: 5px;
+    
+}
+
+span.helptext{
+    padding: 0px 0 2rem 0;
+    margin: -20px 0;
+    color: #aaa;
+}
+
+
+@media (min-width:800px) {    
+    form{
+        padding: 3rem 10rem 1rem;
+    }
+}
