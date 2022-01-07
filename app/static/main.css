@@ -67,6 +67,7 @@ main{
     margin: 3% 20%;
     position: relative;
     padding: 0 0 10rem 0;
+    align-items: center;
     display: flex;
     overflow: hidden;
 }

@@ -1,4 +1,5 @@
 #rest_framework
+from django.views.generic.base import TemplateView
 from rest_framework.views import APIView
 from .serializers import *
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -32,12 +33,15 @@ from .forms import *
 class Register(FormView):
     template_name  = 'register.html'
     form_class     = UserForm
-    success_url    = reverse_lazy('accounts:login') 
+    success_url    = reverse_lazy('accounts:my_account') 
 
     def form_valid(self, form):         
         form.save()
+        user = authenticate(username = form.cleaned_data['email'], password = form.cleaned_data['password1'])
+        token,_ = Token.objects.get_or_create(user = user)
+        if token:
+            login(self.request, user)        
         return super(Register,self).form_valid(form)
-
 
 class Login(FormView):
     template_name = "login.html"
@@ -60,9 +64,19 @@ class Login(FormView):
             return super(Login,self).form_valid(form)            
 
 class Logout(APIView):
+    success_url = reverse_lazy('accounts:login') 
     def get(self,request,format=None):        
         logout(request)
         return Response(status=status.HTTP_200_OK)
+
+class MyAccount(TemplateView):
+    template_name = "my_account.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['token'] = Token.objects.get(user=self.request.user)
+        return context
+    
 
 class CreateUserView(generics.CreateAPIView):
     serializer_class = UserSerializer
