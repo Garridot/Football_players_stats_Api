@@ -12,33 +12,45 @@
     color: #212529;
 }
 
+main{
+    margin: 11rem 0;
+}
+
 main .text{
     animation-name: viewLeft;
     animation-duration: 3s ;
+    width: 80%;
+    margin: auto;
 } 
-main .text  h2{
-    font-size: 3.5em;
-    margin-bottom: 10px;
-    line-height: 1.2em;
-    font-weight: 700;
-}
-main .text h2.api{
-    color: rgb(253, 151, 166);
-    
-}
+
 main .text p{
     font-size: 1.2em;    
+}
+main .text h6{
+    margin: 2rem 0;
+    font-weight: 800;
+}                                                               
+main .text a{
+    
+    padding: 0.2rem 0.5rem;
+    background: lightcoral;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
 }
 
 main .img{
     animation-name: viewRight;
     animation-duration: 3s ;
+    position: absolute;
+    right: 100px;
+    top: 6rem;
 }
 main .img img{    
-    width: 700px;
-    filter: grayscale(0.9) drop-shadow(5px 6px 10px pink);
+    width: 700px;    
     transform: translateX(140px);
     transform: translateX(100px);
+    filter: opacity(0.3) grayscale(1);
     
 }
 
@@ -51,3 +63,24 @@ footer{
     font-size: 1.2em;    
 }
   
+
+@media(max-width:995px){
+    .img{
+        right: 0;
+        bottom: 130px;
+        opacity: 0.25;
+    }
+}
+
+@media(max-width:600px){
+    .container-fluid {
+        width: 597px;
+        overflow: hidden;
+        position: relative;
+    }
+    .img{
+    opacity: 0.2;
+    right: -100px !important;
+    }
+
+    }

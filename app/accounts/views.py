@@ -63,11 +63,11 @@ class Login(FormView):
             login(self.request, form.get_user())
             return super(Login,self).form_valid(form)            
 
-class Logout(APIView):
-    success_url = reverse_lazy('accounts:login') 
+class Logout(APIView):   
     def get(self,request,format=None):        
         logout(request)
         return Response(status=status.HTTP_200_OK)
+        
 
 class MyAccount(TemplateView):
     template_name = "my_account.html"
