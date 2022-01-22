@@ -149,9 +149,9 @@ Q_CLUSTER = {
     'cpu_affinity': 1,
     'label': 'Django Q',
     'redis': {
-        'host': 'ec2-52-45-102-98.compute-1.amazonaws.com',
+        'host': 'ec2-34-232-107-96.compute-1.amazonaws.com',
         'password': 'p6ae4713d213913af5e365dbf58752a7bc87f597a216952ee0cb0aaa6865825f5',
-        'port': 9129,
+        'port': 23449,
         'db': 0, }
 }
 
