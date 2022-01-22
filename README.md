@@ -37,7 +37,7 @@ An API (Application Programming Interface) is a contract that allow developers t
 
 
 
-### Endpoints
+## Endpoints
 
 Base URL for all endpoints https://football-players-stats-api.herokuapp.com
 
@@ -50,6 +50,7 @@ GET /api/players/
 * GET /api/matches/player={player_id}/?season={season_id}
 
 ### Example request:
+
 ```
 const get_players = async() =>{
 const response = await fetch('https://football-players-stats-api.herokuapp.com/api/players/1',{
