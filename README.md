@@ -9,6 +9,8 @@ This is a consumption-only API — only the HTTP GET method is available on reso
 
 An API (Application Programming Interface) is a contract that allow developers to interact with an application through a set of interfaces. In this case, the application is a database of thousands of Pokémon-related objects, and the interfaces are URL links. A RESTful API is an API that conforms to a set of loose conventions based on HTTP verbs, errors, and hyperlinks.
 
+
+
 ## What information is stored here?
 
 ### Player
@@ -33,6 +35,8 @@ An API (Application Programming Interface) is a contract that allow developers t
 * Away team
 * Goals
 
+
+
 ### Endpoints
 
 Base URL for all endpoints https://football-players-stats-api.herokuapp.com
@@ -46,6 +50,7 @@ GET /api/players/
 * GET /api/matches/player={player_id}/?season={season_id}
 
 ### Example request:
+```
 const get_players = async() =>{
 const response = await fetch('https://football-players-stats-api.herokuapp.com/api/players/1',{
 headers:{
@@ -54,7 +59,10 @@ headers:{
  })
 } const data = await response.json(}
 
+```
+
 ### Example response:
+```
 {
   "id":1,
   "name":"Lionel Messi",
@@ -64,3 +72,4 @@ headers:{
   "club":"Paris St-G.",
   "height":"1.68m"
 }
+```
