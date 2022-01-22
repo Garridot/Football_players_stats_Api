@@ -13,6 +13,8 @@ An API (Application Programming Interface) is a contract that allow developers t
 
 ## What information is stored here?
 
+
+
 ### Player
 * Id
 * Name
@@ -34,8 +36,6 @@ An API (Application Programming Interface) is a contract that allow developers t
 * Result
 * Away team
 * Goals
-
-
 
 ## Endpoints
 
@@ -59,7 +59,6 @@ headers:{
  }
  })
 } const data = await response.json(}
-
 ```
 
 ### Example response:
