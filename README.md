@@ -1,1 +1,1 @@
-
+Players, Stats API is an api that saves statistics of football players. The api scrapes their data using asynchronous tasks. The data is updated every minute. Users will be able to access the data via a token.
