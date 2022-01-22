@@ -5,11 +5,11 @@ Players Stats API is an api that saves statistics of football players. The api s
 
 This is a consumption-only API — only the HTTP GET method is available on resources.
 
-### What is an API?
+## What is an API?
 
 An API (Application Programming Interface) is a contract that allow developers to interact with an application through a set of interfaces. In this case, the application is a database of thousands of Pokémon-related objects, and the interfaces are URL links. A RESTful API is an API that conforms to a set of loose conventions based on HTTP verbs, errors, and hyperlinks.
 
-### What information is stored here?
+## What information is stored here?
 
 Player
 Id
@@ -33,7 +33,7 @@ Result
 Away team
 Goals
 
-### Endpoints
+## Endpoints
 
 Base URL for all endpoints https://football-players-stats-api.herokuapp.com
 
