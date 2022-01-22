@@ -1,14 +1,15 @@
-Players, Stats API is an api that saves statistics of football players. The api scrapes their data using asynchronous tasks. The data is updated every minute. Users will be able to access the data via a token.
+# Players Stats API
+Players Stats API is an api that saves statistics of football players. The api scrapes their data using asynchronous tasks. The data is updated every minute. Users will be able to access the data via a token.
 
-Information
+## Information
 
 This is a consumption-only API — only the HTTP GET method is available on resources.
 
-What is an API?
+### What is an API?
 
 An API (Application Programming Interface) is a contract that allow developers to interact with an application through a set of interfaces. In this case, the application is a database of thousands of Pokémon-related objects, and the interfaces are URL links. A RESTful API is an API that conforms to a set of loose conventions based on HTTP verbs, errors, and hyperlinks.
 
-What information is stored here?
+### What information is stored here?
 
 Player
 Id
@@ -32,7 +33,7 @@ Result
 Away team
 Goals
 
-Endpoints
+### Endpoints
 
 Base URL for all endpoints https://football-players-stats-api.herokuapp.com
 
@@ -43,7 +44,8 @@ GET /api/seasons/
 GET /api/seasons/{season_id}
 GET /api/matches/player={player_id}
 GET /api/matches/player={player_id}/?season={season_id}
-Example request:
+
+### Example request:
 const get_players = async() =>{
 const response = await fetch('https://football-players-stats-api.herokuapp.com/api/players/1',{
 headers:{
@@ -51,7 +53,8 @@ headers:{
  }
  })
 } const data = await response.json(}
-Example response:
+
+### Example response:
 {
   "id":1,
   "name":"Lionel Messi",
