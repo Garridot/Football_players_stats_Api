@@ -102,7 +102,10 @@ class MatchesView(generics.ListAPIView):
                 return queryset
             else:  
                 if Players.objects.filter(id=player) and Seasons.objects.filter(id=season):
-                    raise serializers.ValidationError({"detail": f"{Players.objects.get(id=player)} has not played any matches in {Seasons.objects.get(id=season)} ",'code':status.HTTP_404_NOT_FOUND})
+                    raise serializers.ValidationError(
+                        {"detail": f"{Players.objects.get(id=player)} has not played any matches in {Seasons.objects.get(id=season)}",
+                        'code':status.HTTP_404_NOT_FOUND}
+                    )
                 else:
                     raise serializers.ValidationError({"detail": "player or season doesn't exist",'code':status.HTTP_400_BAD_REQUEST})
         else:      
