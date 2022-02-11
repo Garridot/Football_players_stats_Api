@@ -5,6 +5,10 @@ import pandas
 from datetime import datetime
 from database.models import *
 
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+
+import os
 
 class get_season():
 
@@ -248,3 +252,28 @@ class SaveData():
         return HttpResponse(f'{player}, {season} stats added successufully')
 
 
+class Selenium():
+    web_site = 'https://www.soccerbase.com/players/player.sd?player_id=39850'
+    
+
+    s = Service( '/Users/Garrido/Desktop/chromedriver')
+
+    options = webdriver.ChromeOptions() 
+    options.add_argument('--headless') 
+    options.add_argument('--log-level=1')
+    driver = webdriver.Chrome(service=s,options = options)
+
+    
+    driver.get(web_site)
+
+    select = driver.find_element_by_id('seasonSelect')
+
+    options = [x for x in select.find_elements_by_tag_name("option")]
+
+    for element in options:    
+        season_id = int(element.get_attribute("value"))
+        if season_id != 0:
+            url = f'{web_site}&season_id={season_id}'    
+            CreateStast(url)  
+
+Selenium()       
