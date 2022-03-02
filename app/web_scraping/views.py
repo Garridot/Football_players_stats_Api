@@ -5,8 +5,7 @@ import pandas
 from datetime import datetime
 from database.models import *
 
-from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
+
 
 import os
 
@@ -21,11 +20,9 @@ class get_season():
 class get_player():
 
     def player(soup,url): 
-        player = soup.find('tr',class_='first').find('td').text.strip()
+        player = soup.find('tr',class_='first').find('td').text.strip()        
         try:
-            qs_player  = Players.objects.get(name=player)
-            if qs_player:
-                qs_player  = qs_player    
+            qs_player  = Players.objects.get(name=player)               
         except:             
             CreatePlayer.create(soup,url)                     
             qs_player  = Players.objects.get(name=player) 
@@ -252,28 +249,30 @@ class SaveData():
         return HttpResponse(f'{player}, {season} stats added successufully')
 
 
-class Selenium():
-    web_site = 'https://www.soccerbase.com/players/player.sd?player_id=39850'
+# class Selenium():
+#     from selenium import webdriver
+#     from selenium.webdriver.chrome.service import Service
+
+#     web_site = 'https://www.soccerbase.com/players/player.sd?player_id=44554'
     
 
-    s = Service( '/Users/Garrido/Desktop/chromedriver')
+#     s = Service( '/Users/Garrido/Desktop/chromedriver')
 
-    options = webdriver.ChromeOptions() 
-    options.add_argument('--headless') 
-    options.add_argument('--log-level=1')
-    driver = webdriver.Chrome(service=s,options = options)
+#     options = webdriver.ChromeOptions() 
+#     options.add_argument('--headless') 
+#     options.add_argument('--log-level=1')
+#     driver = webdriver.Chrome(service=s,options = options)
 
     
-    driver.get(web_site)
+#     driver.get(web_site)
 
-    select = driver.find_element_by_id('seasonSelect')
+#     select = driver.find_element_by_id('seasonSelect')
 
-    options = [x for x in select.find_elements_by_tag_name("option")]
+#     options = [x for x in select.find_elements_by_tag_name("option")]
 
-    for element in options:    
-        season_id = int(element.get_attribute("value"))
-        if season_id != 0:
-            url = f'{web_site}&season_id={season_id}'    
-            CreateStast(url)  
+#     for element in options:    
+#         season_id = int(element.get_attribute("value"))
+#         if season_id != 0:
+#             url = f'{web_site}&season_id={season_id}'    
+#             CreateStast(url)  
 
-Selenium()       
