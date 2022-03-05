@@ -27,22 +27,22 @@ class MainView(TemplateView):
 
 class BaseViewSet(ModelViewSet):
 
-    authentication_class = (TokenAuthentication,)    
+    # authentication_class = (TokenAuthentication,)    
     
     def get_permissions(self):
-        permission_classes = [IsAuthenticated,] 
+        permission_classes = [IsAdminUser] 
         
         if self.action == 'create':
-            permission_classes = [IsAuthenticated,IsAdminUser]
+            permission_classes = [IsAdminUser]
 
         elif self.action == 'update': 
-            permission_classes = [IsAuthenticated,IsAdminUser]
+            permission_classes = [IsAdminUser]
 
         elif self.action == 'partial_update':
-            permission_classes = [IsAuthenticated,IsAdminUser]
+            permission_classes = [IsAdminUser]
 
         elif self.action == 'destroy':
-            permission_classes = [IsAuthenticated,IsAdminUser]
+            permission_classes = [IsAdminUser]
 
         return [permission() for permission in permission_classes]
         

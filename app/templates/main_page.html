@@ -30,8 +30,7 @@
             <ul class="navegation">
                 <li><a href="#documentation">Documentation</a></li>
                 <li><a href="#endpoints">Endpoins</a></li>
-                <li><a href="https://github.com/Garridot/Football_players_stats_Api"><i class="fab fa-github"></i> Github</a></li>
-                <li><a href="/login">Login</a></li>
+                <li><a href="https://github.com/Garridot/Football_players_stats_Api"><i class="fab fa-github"></i> Github</a></li>                
             </ul>
         </header>
         <main>
@@ -46,25 +45,13 @@
         
         <section class="documentation" id="documentation" data-aos="fade-right" data-aos-duration="1000">
 
-            <h3>Information</h3>
-
-            <p>
+            <h3>Information</h3>            
+            <p style="text-align: center;">
+                Players Stats Api is an API that saves statistics about football players. This API scrapes its
+                data through an asynchronous task . The data is updated every minute.
                 This is a consumption-only API — only the HTTP GET method is available on resources.                
-            </p>
-
-            <h3>What is an API?</h3> 
-
-            <p>
-                An API (Application Programming Interface) is a contract that allow developers to interact with an application through 
-                a set of interfaces. 
-                In this case, the application is a database of thousands of Pokémon-related objects, and the interfaces are URL links.
-                A RESTful API is an API that conforms to a set of loose conventions based on HTTP verbs, errors, and hyperlinks.
-            </p>
-
-            
-
+            </p>            
             <h3>What information is stored here?</h3>
-
             <ul class="data_list">
                 <h4>Player</h4>
                 <li>Id</li>
@@ -75,13 +62,11 @@
                 <li>Club</li>
                 <li>Height</li>
             </ul>
-
             <ul class="data_list">
                 <h4>Season</h4>
                 <li>Id</li>
                 <li>Season</li>
             </ul>
-
             <ul class="data_list">
                 <h4>Match</h4>
                 <li>Id</li>
@@ -105,47 +90,38 @@
                 <li> <samp>GET </samp> <code>/api/seasons/{season_id}</code> </li>
                 <li> <samp>GET </samp> <code>/api/matches/player={player_id}</code> </li>
                 <li> <samp>GET </samp> <code>/api/matches/player={player_id}/?season={season_id}</code> </li>
-            </ul>
-            <p>
-                Example request:<br>
-            </p>
-            <div class="code-area">
-                <code>    
-                    const get_players = async() =>{
-                        <br>                    
-                        const response = await fetch('https://football-players-stats-api.herokuapp.com/api/players/1',{                        
-                            <br>
-                            headers:{
-                                <br>
-                                &nbspAuthorization: `token ${your_token}`
-                                <br>   
-                                &nbsp}
-                                <br>
-                                &nbsp})
-                                <br>
-                            }
-                    const data = await response.json(}  
-                    <br>                
-                </code>  
-            </div>              
-            <p>    
-                Example response:<br>
-            </p>
-            <div class="code-area">
-                <code>
-                    {<br>
-                        
-                        &nbsp "id":1,<br>
-                        &nbsp "name":"Lionel Messi",<br>
-                        &nbsp "age":"34",<br>
-                        &nbsp "date_of_birth":"1987-06-24",<br>
-                        &nbsp "nationality":"Argentina",<br>
-                        &nbsp "club":"Paris St-G.",<br>
-                        &nbsp "height":"1.68m"<br>
-                    }
-                </code>
-            </div>
+            </ul>            
         </section>
+        <section>
+            <p>
+                <strong>Example request:</strong>   Get the last 5 Messi's matches<br>
+            </p>
+            <div class="code-area">
+                <code>      
+                    fetch('https://football-players-stats-api.herokuapp.com/api/matches/player=1/')<br> 
+                    .then(response => response.json())<br>
+                    .then(function(data){<br> 
+                        &nbsp&nbsp&nbspvar list = data.slice(-5)<br> 
+                    })                 
+                    
+                </code>  
+            </div> 
+
+            <table class="table" style="margin: 5rem 0 0 0;">
+                <thead>
+                  <tr>
+                    <th scope="col">Date</th>
+                    <th scope="col">Competition</th>
+                    <th scope="col">Home_team</th>
+                    <th scope="col">Result</th>
+                    <th scope="col">Away_team</th>
+                    <th scope="col">Goals</th>
+                  </tr>
+                </thead>
+                <tbody class="rows">                                   
+                </tbody>
+              </table>
+        </section>        
         <footer>
             <p>
                 <a href="https://github.com/Garridot/Football_players_stats_Api">Player Stats Api</a>
@@ -164,3 +140,28 @@
 <script src="{% static 'main.js' %}"></script>
 
 </html>
+
+<script>
+    var rows = document.querySelector('.rows')
+    fetch('http://127.0.0.1:8000/api/matches/player=1')
+    .then(response => response.json())
+    .then(function(data){ 
+        var list = data.slice(-5)
+        for (var i in list){
+            var item = 
+            `
+            <tr>           
+                <th>${list[i].date}</th>
+                <td>${list[i].competition}</td>
+                <td>${list[i].home_team}</td>
+                <td>${list[i].result}</td>
+                <td>${list[i].away_team}</td>
+                <td>${list[i].goals}</td>
+            </tr>  
+            `
+            rows.innerHTML += item    
+        }
+    })    
+    
+     
+</script>
