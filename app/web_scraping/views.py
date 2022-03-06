@@ -84,8 +84,10 @@ class check_the_last_match():
         date  = datetime.strptime(date,'%d %b %Y').date()
 
         match = Matches.objects.filter(player=player,season=qs_season.id,date=date)
-         
-        return match
+
+        if match == None:
+            return None
+            
 
 
 def UpdateStast(): 
@@ -103,29 +105,29 @@ def UpdateStast():
     df = df    
     df.columns = range(df.shape[1])
     df = df.drop([0,2,6,7,8,9,10,11], axis=1)
-    print(df)
+    
     if df.shape[0] == 0:
-
         print('No math found.')
 
     else:
         print(df)
         home_team = df[3]
         away_team = df[5]
-        teams = []        
+        teams     = [] 
+
         for h,a in zip(home_team,away_team):
             teams.append(h)
             teams.append(a)
         
         for player in Players.objects.all(): 
 
-            scraping = Scraping.objects.get(player=player)
+            scrap = Scraping.objects.get(player=player)
 
-            for t in teams:
+            for team in teams:
                 
-                if t == player.club or t == player.nationality: 
+                if team == player.club or team == player.nationality: 
 
-                    url = f'https://www.soccerbase.com/players/player.sd?player_id={scraping.id_to_scraping}' 
+                    url = f'https://www.soccerbase.com/players/player.sd?player_id={scrap.id_to_scraping}' 
                     response = requests.get(url)
                     soup  = BeautifulSoup(response.text, 'html.parser')
                     table = soup.find('table',class_='soccerGrid listWithCards') 
@@ -135,12 +137,11 @@ def UpdateStast():
 
                     qs_season = get_season.season(soup)
                     
-                    match = check_the_last_match.check(soup,player,qs_season,df)
+                    match = check_the_last_match.check(soup,player,qs_season,df)                    
 
-                    if match == None:
+                    if match != None:
                         df = CleanData.clean(df)
-                        SaveData.save(df,qs_player=player,qs_season=qs_season)   
-                       
+                        SaveData.save(df,qs_player=player,qs_season=qs_season) 
                     
                 else:                   
                     None        
@@ -220,12 +221,10 @@ class CleanData():
 
 
 class SaveData():
-    def save(df,qs_player,qs_season):       
+    def save(df,qs_player,qs_season):      
          
         player = qs_player.id        
         season = qs_season.id
-
-        
 
         for row in df.itertuples(): 
             
@@ -246,7 +245,8 @@ class SaveData():
                     season      = Seasons.objects.get(id=season)
                     )  
                 
-        return HttpResponse(f'{player}, {season} stats added successufully')
+        print(f'{player}, {season} stats added successufully')
+
 
 
 # class Selenium():
