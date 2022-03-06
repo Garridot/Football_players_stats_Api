@@ -30,7 +30,7 @@ class BaseViewSet(ModelViewSet):
     # authentication_class = (TokenAuthentication,)    
     
     def get_permissions(self):
-        permission_classes = [IsAdminUser] 
+        permission_classes = [] 
         
         if self.action == 'create':
             permission_classes = [IsAdminUser]
