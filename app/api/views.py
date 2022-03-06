@@ -87,8 +87,9 @@ class SeasonsView(BaseViewSet):
 class MatchesView(generics.ListAPIView):
 
     serializer_class    = MatchesSerializer
-    permission_classes = [IsAuthenticated,] 
-    authentication_class = (TokenAuthentication,)
+    
+    # permission_classes = [IsAuthenticated,] 
+    # authentication_class = (TokenAuthentication,)
     
     def get_queryset(self):
 

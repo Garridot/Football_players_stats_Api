@@ -143,7 +143,7 @@
 
 <script>
     var rows = document.querySelector('.rows')
-    fetch('https://football-players-stats-api.herokuapp.com/api/matches/player=1')
+    fetch('https://football-players-stats-api.herokuapp.com/api/matches/player=1',{mode: 'no-cors'})
     .then(response => response.json())
     .then(function(data){ 
         var list = data.slice(-5)
