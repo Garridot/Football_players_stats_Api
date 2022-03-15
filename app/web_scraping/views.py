@@ -93,7 +93,9 @@ class check_the_last_match():
 def UpdateStast(): 
 
        
-    url = 'https://www.soccerbase.com/matches/home.sd'    
+    url = 'https://www.soccerbase.com/matches/home.sd' 
+    
+
     response = requests.get(url)
     
     soup   = BeautifulSoup(response.text, 'html.parser')      
@@ -137,9 +139,11 @@ def UpdateStast():
 
                     qs_season = get_season.season(soup)
                     
-                    match = check_the_last_match.check(soup,player,qs_season,df)                    
+                    match = check_the_last_match.check(soup,player,qs_season,df)
 
-                    if match != None:
+                                         
+
+                    if match == None:
                         df = CleanData.clean(df)
                         SaveData.save(df,qs_player=player,qs_season=qs_season) 
                     
@@ -245,7 +249,7 @@ class SaveData():
                     season      = Seasons.objects.get(id=season)
                     )  
                 
-        print(f'{player}, {season} stats added successufully')
+        print(f'{Players.objects.get(id=player)}, {Seasons.objects.get(id=season)} stats added successufully')
 
 
 
