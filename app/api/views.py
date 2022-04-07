@@ -98,13 +98,20 @@ class MatchesView(generics.ListAPIView):
         season    = self.request.query_params.get('season')
 
         if season is not None:
+            
             queryset  = queryset.filter(player=player,season=season)
-            if queryset.exists():
-                return queryset
+            
+            if queryset.exists():  return queryset
+            
             else:  
+
                 if Players.objects.filter(id=player) and Seasons.objects.filter(id=season):
+
+                    player_ = Players.objects.get(id=player)
+                    season_ = Seasons.objects.get(id=season) 
+
                     raise serializers.ValidationError(
-                        {"detail": f"{Players.objects.get(id=player)} has not played any matches in {Seasons.objects.get(id=season)}",
+                        {"detail": f"{player_} has not played any matches in {season_}",
                         'code':status.HTTP_404_NOT_FOUND}
                     )
                 else:
