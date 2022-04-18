@@ -1,3 +1,4 @@
+from ast import Break
 from bs4 import BeautifulSoup
 import requests
 import pandas 
@@ -10,49 +11,50 @@ import os
 
 def UpdateStast():     
 
-    response = requests.get('https://www.soccerbase.com/matches/home.sd' )
+    response = requests.get('https://www.soccerbase.com/matches/home.sd' )     
     
-    soup    = BeautifulSoup(response.text, 'html.parser')      
-    matches = soup.find('table',class_='soccerGrid homeMatchGrid')    
+    soup     = BeautifulSoup(response.text, 'html.parser')      
+    matches  = soup.find('table',class_='soccerGrid homeMatchGrid')      
 
     df = pandas.read_html(str(matches))
     df = df[0]
 
     # Fiilter if the match is finished  
-    df = df[df[1].str.contains('ft',case=False)]
-    
-    df = df   
+    df = df[df[1].str.contains('ft',case=False)]    
+    df = df  
 
     df.columns = range(df.shape[1])
-    df = df.drop([0,2,6,7,8,9,10,11], axis=1)
+    df = df.drop([0,2,6,7,8,9,10,11], axis=1)    
 
     if_matches_found(df)
 
 
 def if_matches_found(df):
 
-    if df.shape[0] == 0: print('No math found.')
+    if len(df) == 0: print('No math found.')
 
     else:
         print(df)
         
-        home_team = df[3],away_team = df[5]
+        home_team = df[3]
+        away_team = df[5]
         teams     = [] 
 
         for h,a in zip(home_team,away_team):
-            teams.append(h), teams.append(a)
+            teams.append(h)
+            teams.append(a)
+
+        players = []       
 
         for team in teams:
-
-            players = []   
-                    
+            
             fil1 = Players.objects.filter(club=team)
             fil2 = Players.objects.filter(nationality=team)
             
-            if fil1.exists():  [players.append(i) for i in fil1]
-            if fil2.exists():  [players.append(i) for i in fil2]
+            [players.append(i) for i in fil1 if fil1]
+            [players.append(i) for i in fil2 if fil2]
 
-    if not players: None
+    if not players: Break
     else: update_player_stats(players)            
 
 
@@ -78,7 +80,7 @@ def update_player_stats(players):
 
             if match == None:
                 df = clean_data(df)
-                save_data(df,qs_player=player,qs_season=qs_season) 
+                save_data(df,player=player,season=qs_season) 
 
       
 
@@ -104,15 +106,17 @@ class CreateStast:
 def save_data(df,player,season):
 
     player = player.id        
-    season = season.id
+    season = Seasons.objects.get(season=season)
 
     for row in df.itertuples(): 
         
-        match = Matches.objects.filter(player=player,season=season,date=row.Date)   
+        match = Matches.objects.filter(player=player,season=season.id,date=row.Date)   
         if match.exists():
-            None
-        else:    
-            goals = int(row.Goals)   
+            print(f'{player},{row.Date} already exists.')
+        else: 
+
+            try:goals = int(row.Goals) 
+            except:goals = 0  
 
             Matches.objects.create(
                 date        = row.Date,
@@ -122,11 +126,10 @@ def save_data(df,player,season):
                 away_team   = row.Away_team,
                 goals       = goals,
                 player      = Players.objects.get(id=player),
-                season      = Seasons.objects.get(id=season)
+                season      = season
                 )  
 
-            msj =  f'{Players.objects.get(id=player).name}, {Seasons.objects.get(id=season).season} stats added successufully'        
-            return print(msj)
+            return print(f'{player}, {row.Date} stats added successufully'  )
 
 
 

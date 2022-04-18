@@ -75,7 +75,7 @@ def check_season(soup):
         title = soup.find('h2').text.strip()
         season = f"{title[-9:]}" 
         qs_season  = Seasons.objects.get_or_create(season=season) 
-        return season[0]
+        return qs_season[0]
 
 
 def check_player(soup,url): 
@@ -84,14 +84,15 @@ def check_player(soup,url):
 
         player = soup.find('tr',class_='first').find('td').text.strip()  
 
-        if  Players.objects.filter(name=player).filter():
-            return qs_player 
+        if  Players.objects.filter(name=player).first():
+            player  = Players.objects.get(name=player)
+            return player 
 
         else:  
             create_player(soup,url)                     
-            qs_player  = Players.objects.get(name=player) 
+            player  = Players.objects.get(name=player) 
 
-        return player         
+            return player         
 
 
 def create_player(soup,url):
@@ -132,6 +133,8 @@ def check_the_last_match(soup,player,qs_season,df):
     data  = tr[-1] 
     date  = f"{data[2][:2]} {data[2][2:]} {data[3][:4]}"
     date  = datetime.strptime(date,'%d %b %Y').date()
+
+    
 
     match = Matches.objects.filter(player=player,season=qs_season.id,date=date)
 
